@@ -9,13 +9,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 firebase.initializeApp({
-  apiKey: 'AIzaSyC2fPjlQsfi-MWKJdRhmNNyGmpiGLgKPW4',
-  authDomain: 'chat-app-react-187d8.firebaseapp.com',
-  projectId: 'chat-app-react-187d8',
-  storageBucket: 'chat-app-react-187d8.appspot.com',
-  messagingSenderId: '1011226947235',
-  appId: '1:1011226947235:web:82bc5f176ef7eb3adc1916',
-  measurementId: 'G-PQN6MEYCFP',
+//ADD your FIREBASE API KEYS
 });
 
 const auth = firebase.auth();
@@ -82,15 +76,15 @@ const ChatRoom = () => {
     });
 
     setFormValue('');
-
+    dummy.current.scrollIntoView({ behavior: 'smooth' });
   };
   return (
     <>
       <main>
         {messages &&
-          messages.map((message) => (
-            <ChatMessage key={message.id} message={message} />
-          ))}
+          messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
+
+        <span ref={dummy}></span>
       </main>
       <form onSubmit={sendMessage}>
         <input
