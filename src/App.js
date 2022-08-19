@@ -28,11 +28,26 @@ const App = () => {
       <header>
         <h1> Welcome To the Chat Room</h1>
       </header>
-      <section></section>
+      <section>
+        <SignIn />
+      </section>
     </div>
   );
 };
 
-
+const SignIn = () => {
+  const signInWithGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider);
+  };
+  return (
+    <>
+      <button className="sign-in" onClick={signInWithGoogle}>
+        Sign In with google
+      </button>
+      <p> Respect the community guidelines and PEACE ✌️</p>
+    </>
+  );
+};
 
 export default App;
