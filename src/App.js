@@ -6,10 +6,7 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { initializeApp } from 'firebase/compat/app';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import {
-  useCollection,
-  useCollectionData,
-} from 'react-firebase-hooks/firestore';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyC2fPjlQsfi-MWKJdRhmNNyGmpiGLgKPW4',
@@ -32,7 +29,7 @@ const App = () => {
         <h1> Welcome To the Chat Room</h1>
       </header>
       <section>
-        <SignIn />
+        <ChatRoom />
       </section>
     </div>
   );
@@ -52,6 +49,8 @@ const SignIn = () => {
     </>
   );
 };
+
+
 
 const ChatRoom = () => {
   const dummy = useRef();
@@ -93,11 +92,32 @@ const ChatRoom = () => {
           onChange={(e) => setFormValue(e.target.value)}
           placeholder="send"
         ></input>
+        <button type="submit" disabled={!formValue}>
+          ✉️
+        </button>
       </form>
     </>
   );
 };
 
-const ChatMessage = () => {};
+const ChatMessage = (props) => {
+  const { text, uid, photoURL } = props.message;
+
+  const messageClass = uid === auth.currentUser.uid ? 'sent' : 'recieved';
+
+  return (
+    <>
+      <div className={`message ${messageClass}`}>
+        <img
+          src={
+            photoURL ||
+            'https://avatars.dicebear.com/api/adventurer/your-custom-seed.svg'
+          }
+        />
+        <p>{text}</p>
+      </div>
+    </>
+  );
+};
 
 export default App;
