@@ -27,10 +27,9 @@ const App = () => {
     <div className="App">
       <header>
         <h1> Welcome To the Chat Room</h1>
+        <SignOut />
       </header>
-      <section>
-        <ChatRoom />
-      </section>
+      <section>{user ? <ChatRoom /> : <SignIn />}</section>
     </div>
   );
 };
@@ -50,7 +49,15 @@ const SignIn = () => {
   );
 };
 
-
+const SignOut = () => {
+  return (
+    auth.currentUser && (
+      <button className="sing-out" onClick={() => auth.signOut()}>
+        Sign Out
+      </button>
+    )
+  );
+};
 
 const ChatRoom = () => {
   const dummy = useRef();
@@ -75,7 +82,7 @@ const ChatRoom = () => {
     });
 
     setFormValue('');
-    dummy.current.scrollIntoView({ behavior: 'smooth' });
+
   };
   return (
     <>
@@ -84,7 +91,6 @@ const ChatRoom = () => {
           messages.map((message) => (
             <ChatMessage key={message.id} message={message} />
           ))}
-        <span> ref={dummy}</span>
       </main>
       <form onSubmit={sendMessage}>
         <input
